@@ -1,13 +1,4 @@
-# -------------------------------------------------------------------------------
-# graphgen.py
-#
-# Dataflow graph generator (Only Python 2.7)
-#
-# pygraphviz and graphviz are required
-#
-# Copyright (C) 2013, Shinya Takamaeda-Yamazaki
-# License: Apache 2.0
-# -------------------------------------------------------------------------------
+# example_graphgen_fixed.py
 from __future__ import absolute_import
 from __future__ import print_function
 import sys
@@ -25,9 +16,9 @@ from pyverilog.dataflow.graphgen import VerilogGraphGenerator
 
 
 def main():
-    INFO = "Graph generator from dataflow"
+    INFO = "Graph generator from dataflow (Fixed Version)"
     VERSION = pyverilog.__version__
-    USAGE = "Usage: python example_graphgen.py -t TOPMODULE -s TARGETSIGNAL file ..."
+    USAGE = "Usage: python example_graphgen_fixed.py -t TOPMODULE -s TARGETSIGNAL file ..."
 
     def showVersion():
         print(INFO)
@@ -97,8 +88,9 @@ def main():
                                      resolved_terms, resolved_binddict, constlist, options.outputfile)
 
     for target in options.searchtarget:
+        # 关键修改：将 reorder 改为 do_reorder
         graphgen.generate(target, walk=options.walk, identical=options.identical,
-                          step=options.step, reorder=options.reorder, delay=options.delay)
+                          step=options.step, do_reorder=options.reorder, delay=options.delay)
 
     graphgen.draw()
 
